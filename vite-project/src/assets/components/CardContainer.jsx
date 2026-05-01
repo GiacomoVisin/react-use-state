@@ -1,30 +1,28 @@
-
-import Card from "./Card"
+import { useState } from "react"
 import languages from "../../data/languages"
+import Button from "./Button"
+import Card from "./Card"
 
-export default function CardContainer({ item }) {
+export default function CardContainer() {
+  const [selectedLang, setSelectedLang] = useState(languages[0])
 
+  return (
+    <>
+      <h1>Learn web development</h1>
 
-    return (
-        <>
-            <h1> Learn web development</h1>
-            <div className="container">
-                <div className="ContainerCard">
-                    {languages.map((item) => (
-                        <Card key={item.id} item={item} />
-                    ))}
-                </div>
-            </div>
-        </>
+      <div className="container">
+        {languages.map((item) => (
+          <Button
+            key={item.id}
+            item={item}
+            isActive={selectedLang.id === item.id}
+            onClick={() => setSelectedLang(item)}
+          />
+        ))}
+        
+      </div>
 
-
-
-
-
-
-
-
-
-
-    )
+      <Card item={selectedLang} />
+    </>
+  )
 }
